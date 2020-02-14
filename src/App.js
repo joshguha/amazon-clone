@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Header from "./Header";
 import Home from "./Home";
@@ -16,26 +16,26 @@ const promise = loadStripe(
 	"pk_test_51HPvU9DFg5koCdLGJJbNo60QAU99BejacsvnKvT8xnCu1wFLCuQP3WBArscK3RvSQmSIB3N0Pbsc7TtbQiJ1vaOi00X9sIbazL"
 );
 
-useEffect(() => {
-	auth.onAuthStateChanged((authUser) => {
-		console.log("THE USER IS:", authUser);
-
-		if (authUser) {
-			dispatch({
-				type: "SET_USER",
-				user: authUser,
-			});
-		} else {
-			dispatch({
-				type: "SET_USER",
-				user: null,
-			});
-		}
-	});
-}, []);
-
 function App() {
 	const [{}, dispatch] = useStateValue();
+
+	useEffect(() => {
+		auth.onAuthStateChanged((authUser) => {
+			console.log("THE USER IS:", authUser);
+
+			if (authUser) {
+				dispatch({
+					type: "SET_USER",
+					user: authUser,
+				});
+			} else {
+				dispatch({
+					type: "SET_USER",
+					user: null,
+				});
+			}
+		});
+	}, []);
 
 	return (
 		<Router>
