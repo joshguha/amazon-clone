@@ -22,7 +22,7 @@ function Login() {
 		e.preventDefault();
 
 		auth.createUserWithEmailAndPassword(email, password)
-			.then((auth) => {
+			.then(() => {
 				if (auth) {
 					history.push("/");
 				}
