@@ -84,6 +84,7 @@ const handleSubmit = async (event) => {
 					)
 				</h1>
 
+				{/* Payment section - delivery address */}
 				<div className="payment__section">
 					<div className="payment__title">
 						<h3>Delivery Address</h3>
@@ -93,6 +94,7 @@ const handleSubmit = async (event) => {
 					</div>
 				</div>
 
+				{/* Payment section - Review Items */}
 				<div className="payment__section">
 					<div className="payment__title">
 						<h3>Review items and delivery</h3>
@@ -107,6 +109,46 @@ const handleSubmit = async (event) => {
 								rating={item.rating}
 							/>
 						))}
+					</div>
+				</div>
+
+				{/* Payment section - Payment method */}
+				<div className="payment__section">
+					<div className="payment__title">
+						<h3>Payment Method</h3>
+					</div>
+					<div className="payment__details">
+						<form onSubmit={handleSubmit}>
+							<CardElement onChange={handleChange} />
+
+							<div className="payment__priceContainer">
+								<CurrencyFormat
+									renderText={(value) => (
+										<h3>Order Total: {value}</h3>
+									)}
+									decimalScale={2}
+									value={getBasketTotal(basket)}
+									displayType={"type"}
+									thousandSeparator={true}
+									prefix={"$"}
+								/>
+								<button
+									disabled={
+										processing || disabled || succeeded
+									}
+								>
+									<span>
+										{processing ? (
+											<p>Processing</p>
+										) : (
+											"Buy Now"
+										)}
+									</span>
+								</button>
+							</div>
+
+							{error && <div>{error}</div>}
+						</form>
 					</div>
 				</div>
 			</div>
