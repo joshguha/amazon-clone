@@ -38,4 +38,37 @@ function Payment() {
 	}, [basket]);
 }
 
+const handleSubmit = async (event) => {
+	event.preventDefault();
+	setProcessing(true);
+
+	const payload = await stripe
+		.confirmCardPayment(clientSecret, {
+			payment_method: {
+				card: elements.getElement(cardElement),
+			},
+		})
+		.then(({ paymentIntent }) => {
+			db.collection("users")
+				.doc(user?.uid)
+				.collection("orders")
+				.doc(paymentIntent.id)
+				.set({
+					basket: basket,
+					amount: paymentIntent.amount,
+					created: payment.created,
+				});
+
+			setSuceeded(true);
+			setError(null);
+			setProcessing(false);
+
+			dispatch({
+				type: "EMPTY_BASKET",
+            });
+            
+			history.replace("/orders");
+		});
+};
+
 export default Payment;
