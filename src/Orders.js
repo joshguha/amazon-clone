@@ -27,7 +27,17 @@ function Orders() {
 		}
     }, [user]);
     
+	return (
+		<div className="orders">
+			<h1>Your Order</h1>
 
+			<div className="orders__order">
+				{orders?.map((order) => (
+					<Order order={order} />
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default Orders;
