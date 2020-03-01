@@ -15,3 +15,18 @@
 	border-color: #a88734 #9c7e31 #846a29;
 	color: #111;
 }
+
+.checkoutProduct__image {
+	object-fit: contain;
+	width: 180px;
+	height: 180px;
+}
+
+.checkoutProduct__rating {
+    display: flex;
+  }
+
+.checkoutProduct__title {
+    font-size: 17px;
+    font-weight: 800;
+}
